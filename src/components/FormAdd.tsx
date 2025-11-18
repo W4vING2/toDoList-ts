@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form'
 import { useListStore } from '../store/listStore'
 
 export default function FormAdd() {
-	const { register, handleSubmit } = useForm()
+	const { register, handleSubmit, reset } = useForm()
 	const { updateList, list } = useListStore()
 
 	const addToList = (newItem: string) => {
@@ -13,6 +13,18 @@ export default function FormAdd() {
 		}
 		const newArray = [...list, item]
 		updateList(newArray)
+		const stored = localStorage.getItem('toDo')
+
+		if (!stored) {
+			localStorage.setItem('toDo', JSON.stringify([item]))
+			return
+		}
+
+		const listI = JSON.parse(stored)
+		const updated = Array.isArray(listI) ? [...listI, item] : [listI, item]
+
+		localStorage.setItem('toDo', JSON.stringify(updated))
+		reset()
 	}
 
 	return (

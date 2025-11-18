@@ -6,7 +6,7 @@ import { TaskItem } from './components/ui/TaskItem'
 import { useListStore } from './store/listStore'
 
 export default function App() {
-	const { removeFromList, list } = useListStore()
+	const { list, currentSearch } = useListStore()
 
 	useEffect(() => {
 		console.log(list)
@@ -18,17 +18,15 @@ export default function App() {
 			<FormAdd />
 			<FormSearch />
 			<Actions />
-			{list.map(({ id }) => {
-				return (
-					<TaskItem
-						key={id}
-						id={id.toString()}
-						text={`Task ${id}`}
-						completed={false}
-						onDelete={() => removeFromList(id)}
-					/>
-				)
-			})}
+			<div className='flex flex-col gap-y-0.5'>
+				{list
+					.filter(item => item.text.includes(currentSearch))
+					.map(({ id, text, completed }) => {
+						return (
+							<TaskItem key={id} id={id} text={text} completed={completed} />
+						)
+					})}
+			</div>
 		</div>
 	)
 }

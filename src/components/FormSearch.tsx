@@ -1,4 +1,14 @@
+import { useEffect, useState } from 'react'
+import { useListStore } from '../store/listStore'
+
 export default function FormSearch() {
+	const { currentSearch, updateSearch } = useListStore()
+	const [val, setVal] = useState(currentSearch)
+
+	useEffect(() => {
+		updateSearch(val)
+	}, [val, updateSearch])
+
 	return (
 		<form className='flex gap-2 max-h-10 relative'>
 			<input
@@ -14,6 +24,8 @@ export default function FormSearch() {
          focus:border-black/30
          transition-all duration-300'
 				placeholder='New task title'
+				value={currentSearch}
+				onChange={e => setVal(e.target.value)}
 			/>
 			<img
 				src='/search.svg'

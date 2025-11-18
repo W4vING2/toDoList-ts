@@ -1,33 +1,11 @@
 import { create } from 'zustand'
+import type { IListItem, Store } from './listSorage.types'
 
-interface IListItem {
-	id: string
-	text: string
-	completed: boolean
-}
-
-interface IInitialState {
-	list: IListItem[]
-}
-
-interface IFunctions {
-	updateList: (newList: IListItem[]) => void
-	removeFromList: (id: string) => void
-}
-
-interface Store extends IInitialState, IFunctions {}
+const pastData: IListItem[] = JSON.parse(localStorage.getItem('toDo') || '[]')
 
 export const useListStore = create<Store>()(set => ({
-	list: [
-		{
-			id: '1',
-			text: 'Sample Task 1',
-			completed: false,
-		},
-	],
+	list: pastData,
+	currentSearch: '',
 	updateList: (newList: IListItem[]) => set({ list: newList }),
-	removeFromList: (id: string) =>
-		set(state => ({
-			list: state.list.filter(item => item.id !== id),
-		})),
+	updateSearch: (newSearch: string) => set({ currentSearch: newSearch }),
 }))
