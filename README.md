@@ -46,8 +46,10 @@ persistence.
 ## 🧩 Technologies
 
 -   React + TypeScript
--   Vite
--   ESLint
+-   Vite, ESLint
+-   Zustand
+-   CSS, TailwindCSS
+-   React hook form
 -   LocalStorage API
 
 ## ▶️ Running the Project
