@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import Actions from './components/Actions'
 import FormAdd from './components/FormAdd'
 import FormSearch from './components/FormSearch'
@@ -7,10 +6,6 @@ import { useListStore } from './store/listStore'
 
 export default function App() {
 	const { list, currentSearch } = useListStore()
-
-	useEffect(() => {
-		console.log(list)
-	}, [list])
 
 	return (
 		<div className='bg-gray-50 flex items-center justify-center flex-col p-6 shadow-xl text-center min-h-[200px] w-[300px] rounded-lg border border-gray-300 gap-y-2'>
